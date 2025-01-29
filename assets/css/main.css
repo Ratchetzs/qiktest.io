@@ -1,0 +1,399 @@
+@import url(satoshi.css);
+
+:root {
+    /* Dark Theme */
+    --dark-bg: #0D1117;
+    --dark-text: #C9D1D9;
+    --dark-text-subtil: #696f78;
+    --dark-box-bg: #161B22;
+    --dark-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;
+    --dark-subtil: #262c3663;
+
+    /* Accent Colors */
+    --default:#262c36;
+    --default-hover:#2d323b;
+    --default-border:#3d444d;
+    --primary: #3FCA608F;
+    --primary-hover: #249843;
+    --secondary: #248D3C24;
+    --disabled:#43A96640;
+    --disabled-alpha: #43A9661C;
+    
+    
+    /* Status Colors */
+    --green: #41cf7c;
+    --green-alpha:#41cf7c2e;
+    --yellow: #feb32b;
+    --yellow-alpha: #feb32b30;
+    --red: #f95249;
+    --red-alpha: #f9524930;
+    --blue:#3c82db;
+    --blue-alpha:#3c82db29;
+
+    /* Size and Spacing */
+    --icon-size: 24px;
+    --icon-spacing: 6px;
+}
+
+*, ::after, ::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Satoshi-Regular;
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+section {
+    border-bottom: 1px solid var(--default-border);
+    padding: 2em 0
+}
+
+h1, h2, h3, h4, h5, h6{
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+h1 span {
+    font-size: 24px;
+}
+
+p {
+    background-color: inherit;
+    color: var(--dark-text-subtil);
+    line-height: 1.6;
+}
+
+a {
+    display: inline-block;
+    color: var(--blue);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a.btn:hover {
+    text-decoration: none;
+}
+
+em {
+    color: var(--dark-text);
+    text-decoration: underline;
+}
+
+form {
+    width: 90%;
+    min-width: 360px;
+    max-width: 800px;
+    margin:auto;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--dark-text);
+}
+
+button:hover {
+    background-color: var(--default);
+}
+
+img {
+    width: 100%;
+    clip: auto;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 24px;
+    background-color: var(--dark-box-bg);
+    border-radius: 6px;
+    box-shadow: 0 1px 3px var(--dark-box-shadow);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container h1 {
+    margin-bottom: 20px;
+}
+
+.wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.inline-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+form .inline-box {
+    margin-top: 20px;
+}
+
+form button[type="submit"] {
+    margin-top: 10px;
+}
+
+.text-subtil {
+    color: var(--dark-text-subtil);
+}
+
+.text-small {
+    font-size: 14px;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-between {
+    justify-content: space-between;
+}
+
+.flex-evenly {
+    justify-content: space-evenly;
+}
+
+.flex-aroud {
+    justify-content: space-around;
+}
+
+.align-end {
+    align-items: end;
+}
+
+.field {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.input {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: var(--dark-text);
+    background-color: var(--default);
+    border: 1px solid var(--default-border);
+    border-radius: 4px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    outline: none;
+}
+
+.input-secondary {
+    background-color: transparent;
+}
+
+.input::placeholder {
+    color: var(--dark-text-subtil);
+}
+
+.input:focus {
+    border-color: var(--blue);
+}
+
+.input-label {
+    display: block;
+    font-size: 14px;
+    color: var(--dark-text-subtil);
+    margin-bottom: 10px;
+}
+
+.field:has(.input:focus) .input-label {
+    color: var(--dark-text);
+}
+
+.input-error {
+    border-color: var(--red);
+}
+
+.input-error:focus {
+    border-color: var(--red);
+}
+
+.input-error::placeholder {
+    color: var(--red);
+}
+
+.item {
+    cursor: pointer;
+    font-size: 14px;
+    padding: 8px;
+}
+
+.item:hover {
+    background-color: var(--dark-subtil);
+}
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    background-color: var(--default);
+    color: var(--dark-text);
+    text-align: center;
+    border: 1px solid var(--default-border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: var(--default-hover);
+}
+
+.btn:disabled {
+    background-color: var(--disabled-alpha);
+    color: var(--disabled);
+    border: none;
+    cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+    background-color: var(--disabled-alpha);
+    color: var(--disabled);
+}
+
+.btn-full {
+    width: 100%;
+}
+
+.btn-icon, .item-icon {
+    display: flex;
+    align-items: center;
+}
+
+.btn-icon .icon, .item-icon .icon {
+    font-size: 20px;
+}
+
+.btn-white {
+    background-color: var(--dark-text);
+    color: var(--dark-box-bg);
+}
+
+.btn-white:hover {
+    background-color: #fff;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--dark-text);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+    background-color: var(--secondary);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.btn-secondary:hover {
+    background-color: transparent;
+}
+
+.pins {
+    display: flex;
+    align-items: center;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--dark-text);
+    border: 1px solid var(--default-border);
+    border-radius: 4px;
+    opacity: 0.9;
+}
+
+.pins .icon {
+    font-size: 16px;
+}
+
+.pins-success {
+    background-color: var(--green-alpha);
+    color: var(--green);
+    border-color: var(--green);
+}
+
+.pins-warning {
+    background-color: var(--yellow-alpha);
+    color: var(--yellow);
+    border-color: var(--yellow);
+}
+
+.pins-error {
+    background-color: var(--red-alpha);
+    color: var(--red);
+    border-color: var(--red);
+}
+
+.pins-info {
+    background-color: var(--blue-alpha);
+    color: var(--blue);
+    border-color: var(--blue);
+}
+
+.icon {
+    font-size: var(--icon-size);
+    transition: all ease .2s;
+}
+
+.icon-left {
+    margin-right: var(--icon-spacing);
+}
+
+.icon-right {
+    margin-right: var(--icon-spacing);
+}
+
+.icon.arrow {
+    font-size: 16px;
+    margin-right: 2px;
+}
+
+.icon.arrow.active {
+    transform: rotate(90deg);
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+}
+
+.avatar-image {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+
+.avatar-name {
+    margin-left: 6px;
+}
+
+.avatar-small .avatar-image {
+    width: 24px;
+    height: 24px;
+}
+
+.avatar-small .avatar-name {
+    font-size: 14px;
+}
