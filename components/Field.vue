@@ -41,6 +41,7 @@ const validatePassword = (password) => {
 };
 
 const cls = () => `input ${props.error ? "input-error" : ""}`;
+
 </script>
 
 <template>
@@ -57,10 +58,10 @@ const cls = () => `input ${props.error ? "input-error" : ""}`;
     />
 
     <div v-if="state.passwordBoxIsShow" class="password-input-box">
-      <p :class="{ success: state.passwordRules.minLength }"><Icon name="ic:outline-check" /> At least 8 characters.</p>
-      <p :class="{ success: state.passwordRules.hasNumber }"><Icon name="ic:outline-check" /> At least one digit.</p>
-      <p :class="{ success: state.passwordRules.hasUppercase }"><Icon name="ic:outline-check" /> At least one capital letter.</p>
-      <p :class="{ success: state.passwordRules.hasSpecialChar }"><Icon name="ic:outline-check" /> At least one special character.</p>
+      <p :class="{ success: state.passwordRules.minLength }"><Icon name="ic:outline-check" /> 8+ characters</p>
+      <p :class="{ success: state.passwordRules.hasNumber }"><Icon name="ic:outline-check" /> A number</p>
+      <p :class="{ success: state.passwordRules.hasUppercase }"><Icon name="ic:outline-check" /> An uppercase letter</p>
+      <p :class="{ success: state.passwordRules.hasSpecialChar }"><Icon name="ic:outline-check" /> A special character</p>
     </div>
   </div>
 </template>
@@ -70,9 +71,9 @@ const cls = () => `input ${props.error ? "input-error" : ""}`;
     background-color: var(--dark-box-bg);
     padding: 12px;
     position: absolute;
-    bottom: -20px;
+    bottom: 0;
     transform: translateY(50%);
-    right: -240px;
+    right: -180px;
     box-shadow: var(--dark-box-shadow);
 }
 

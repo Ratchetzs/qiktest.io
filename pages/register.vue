@@ -8,7 +8,7 @@ const state = reactive({
   fullName: "",
   email: "",
   password: "",
-  passwordConfirm: "",
+  passwordConfirmation: "",
   isPasswordValid: false,
   isDisabled: true,
   errors: {},
@@ -32,9 +32,9 @@ const updateButtonState = () => {
     !state.fullName ||
     !state.email ||
     !state.password ||
-    !state.passwordConfirm ||
+    !state.passwordConfirmation ||
     !state.isPasswordValid ||
-    state.password !== state.passwordConfirm;
+    state.password !== state.passwordConfirmation;
 };
 
 const onSubmit = async () => {
@@ -50,7 +50,7 @@ const onSubmit = async () => {
         email: state.email,
         fullName: state.fullName,
         password: state.password,
-        passwordConfirm: state.passwordConfirm,
+        passwordConfirmation: state.passwordConfirmation,
       },
     });
 
@@ -106,13 +106,13 @@ useSeoMeta({
           @password-valid="onPasswordValidation"
         />
         <Field
-          v-model="state.passwordConfirm"
+          v-model="state.passwordConfirmation"
           id="newUserPasswordConfirm"
           type="password"
           label="Confirm password"
-          :placeholder="state.errors.passwordConfirm || ''"
-          :error="!!state.errors.passwordConfirm"
-          @focus="onFieldFocus('passwordConfirm')"
+          :placeholder="state.errors.passwordConfirmation || ''"
+          :error="!!state.errors.passwordConfirmation"
+          @focus="onFieldFocus('passwordConfirmation')"
           @input="onFieldChange"
         />
         <div>

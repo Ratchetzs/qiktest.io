@@ -1,7 +1,9 @@
 @import url(satoshi.css);
+@import url(home.css);
 
 :root {
-    /* Dark Theme */
+    /* Theme */
+    --white:#ffffff;
     --dark-bg: #0D1117;
     --dark-text: #C9D1D9;
     --dark-text-subtil: #696f78;
@@ -13,6 +15,7 @@
     --default:#262c36;
     --default-hover:#2d323b;
     --default-border:#3d444d;
+    --default-alpha: #161B22F7;
     --primary: #3FCA608F;
     --primary-hover: #249843;
     --secondary: #248D3C24;
@@ -31,8 +34,11 @@
     --blue-alpha:#3c82db29;
 
     /* Size and Spacing */
+    --default-spacing:24px;
     --icon-size: 24px;
     --icon-spacing: 6px;
+    --radius: 6px;
+    --text-small:14px
 }
 
 *, ::after, ::before {
@@ -50,7 +56,7 @@ body {
 
 section {
     border-bottom: 1px solid var(--default-border);
-    padding: 2em 0
+    padding: var(--default-spacing) 0
 }
 
 h1, h2, h3, h4, h5, h6{
@@ -62,6 +68,13 @@ h1 span {
     font-size: 24px;
 }
 
+h2 span {
+    font-size: 14px;
+    font-weight: lighter;
+    background-color: inherit;
+    color: var(--dark-text-subtil);
+}
+
 p {
     background-color: inherit;
     color: var(--dark-text-subtil);
@@ -69,10 +82,16 @@ p {
 }
 
 a {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     color: var(--blue);
     text-decoration: none;
     font-size: 14px;
+}
+
+a.btn {
+    width: max-content;
+    color: var(--white);
 }
 
 a:hover {
@@ -84,6 +103,7 @@ a.btn:hover {
 }
 
 em {
+    background-color: inherit;
     color: var(--dark-text);
     text-decoration: underline;
 }
@@ -93,6 +113,14 @@ form {
     min-width: 360px;
     max-width: 800px;
     margin:auto;
+}
+
+form .inline-box {
+    margin-top: var(--default-spacing);
+}
+
+form button[type="submit"] {
+    margin-top: 10px;
 }
 
 button {
@@ -111,25 +139,25 @@ img {
     clip: auto;
 }
 
+.wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
 .container {
     max-width: 800px;
     margin: 40px auto;
-    padding: 24px;
+    padding: var(--default-spacing);
     background-color: var(--dark-box-bg);
-    border-radius: 6px;
+    border-radius: var(--radius);
     box-shadow: 0 1px 3px var(--dark-box-shadow);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .container h1 {
-    margin-bottom: 20px;
-}
-
-.wrapper {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
+    margin-bottom:var(--default-spacing);
 }
 
 .inline-box {
@@ -137,14 +165,6 @@ img {
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
-}
-
-form .inline-box {
-    margin-top: 20px;
-}
-
-form button[type="submit"] {
-    margin-top: 10px;
 }
 
 .text-subtil {
@@ -234,7 +254,7 @@ form button[type="submit"] {
 
 .item {
     cursor: pointer;
-    font-size: 14px;
+    font-size: var(--text-small);
     padding: 8px;
 }
 
@@ -245,7 +265,7 @@ form button[type="submit"] {
 .btn {
     display: inline-block;
     padding: 6px 12px;
-    font-size: 14px;
+    font-size: var(--text-small);
     background-color: var(--default);
     color: var(--dark-text);
     text-align: center;
@@ -295,7 +315,7 @@ form button[type="submit"] {
 
 .btn-primary {
     background-color: var(--primary);
-    color: var(--dark-text);
+    color: #fff;
 }
 
 .btn-primary:hover {
@@ -386,7 +406,7 @@ form button[type="submit"] {
 }
 
 .avatar-name {
-    margin-left: 6px;
+    margin-left: var(--icon-spacing);
 }
 
 .avatar-small .avatar-image {
@@ -395,5 +415,5 @@ form button[type="submit"] {
 }
 
 .avatar-small .avatar-name {
-    font-size: 14px;
+    font-size: var(--text-small);
 }

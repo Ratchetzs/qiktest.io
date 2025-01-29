@@ -6,7 +6,7 @@
     <div class="wrapper flex flex-center">
     <BackToHome />
       <div class="container">
-        <h1><span>🚀</span> Sign in</h1>
+        <h1><span>🚀</span> Welcome back</h1>
         <form action="">
             <Field 
                 id="userEmail"

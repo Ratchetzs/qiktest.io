@@ -1,10 +1,8 @@
 <style>
-    .home-btn {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        top: 24px;
-    }
+.home-btn {
+  position: absolute;
+  top: 24px;
+}
 </style>
 
 <template>
