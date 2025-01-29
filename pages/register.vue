@@ -58,6 +58,7 @@ const onSubmit = async () => {
   } catch (err) {
     if (err.statusCode === 422) {
       err.data.errors.forEach((error) => {
+        state[error.field] = '';
         state.errors[error.field] = error.message;
       });
     }
@@ -100,9 +101,10 @@ useSeoMeta({
           type="password"
           label="Password"
           :placeholder="state.errors.password || ''"
-          :error="!!state.errors.password"
           @focus="onFieldFocus('password')"
           @input="onFieldChange"
+          :error="!!state.errors.password"
+          :passwordConfirmation="state.passwordConfirmation"
           @password-valid="onPasswordValidation"
         />
         <Field
