@@ -1,4 +1,5 @@
 <script setup>
+import AuthFormHeader from "~/components/AuthFormHeader.vue";
 import BackToHome from "~/components/BackToHome.vue";
 import Field from "~/components/Field.vue";
 
@@ -12,31 +13,36 @@ useSeoMeta({
     <BackToHome />
     <div class="container">
       <div class="form-container">
-        <header>
-          <h1><span>🚀</span> Welcome back</h1>
+        <AuthFormHeader
+          mark="🚀"
+          title="Welcome back"
+          redirectLabel="Don't have an account ?"
+          githubLabel="Sign in whit Github"
+          redirect="/register"
+        />
+        <footer>
           <form action="">
             <Field id="userEmail" type="email" label="Email" />
             <Field id="userPassword" type="password" label="Password" />
+            <NuxtLink class="forgot-password" to="/"
+              >Forgot password ?</NuxtLink
+            >
             <div>
-              <button type="submit" class="btn btn-primary btn-full">
+              <button disabled type="submit" class="btn btn-primary btn-full">
                 Sign in
               </button>
             </div>
           </form>
-        </header>
-        <footer>
-          <div>
-            <span class="divider">Or</span>
-          </div>
-          <div class="inline-box flex-between align-center">
-            <button class="btn btn-icon">
-              <Icon class="icon icon-left" name="entypo-social:github" />
-              Sign in whit Github
-            </button>
-            <NuxtLink to="/register">Don't have an account?</NuxtLink>
-          </div>
         </footer>
       </div>
     </div>
   </div>
 </template>
+
+<style>
+.forgot-password {
+  font-size: 12px;
+  margin-top: 10px;
+  float: right;
+}
+</style>

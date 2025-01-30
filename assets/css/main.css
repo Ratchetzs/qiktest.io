@@ -114,21 +114,6 @@ em {
   text-decoration: underline;
 }
 
-form {
-  width: 90%;
-  min-width: 360px;
-  max-width: 800px;
-  margin: auto;
-}
-
-form .inline-box {
-  margin-top: var(--default-spacing);
-}
-
-form button[type="submit"] {
-  margin-top: 10px;
-}
-
 button {
   background-color: transparent;
   border: none;
@@ -215,31 +200,46 @@ img {
   align-items: end;
 }
 
-.form-container footer .divider {
+.form-container {
+    max-width: 360px;
+}
+
+.form-container .inline-box {
+    width: 360px;
+}
+
+.form-container button[type="submit"] {
+    margin-top: 16px;
+  }
+
+.form-container .divider {
   background-color: inherit;
   color: var(--dark-text-subtil);
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--default-spacing);
+  margin-top: var(--default-spacing);
+  margin-bottom: 16px;
 }
 
-.form-container footer .divider::after,
-.form-container footer .divider::before {
+.form-container .divider::after,
+.form-container .divider::before {
   content: "";
   display: block;
-  width: 35%;
+  width: 40%;
   height: 1px;
   background-color: var(--dark-text-subtil);
 }
 
-.form-container footer a {
+.form-container a {
   display: block;
 }
 
-.form-container footer .inline-box {
-  width: 360px;
+.form-container footer {
+    text-align: left;
+    padding: 0;
 }
+
 
 .field {
   position: relative;

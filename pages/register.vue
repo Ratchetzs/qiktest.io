@@ -1,6 +1,9 @@
 <script setup>
-import BackToHome from "~/components/BackToHome.vue";
 import { useFlash } from "#imports";
+import BackToHome from "~/components/BackToHome.vue";
+import PasswordField from "~/components/PasswordField.vue";
+import Field from "~/components/Field.vue";
+import AuthFormHeader from "~/components/AuthFormHeader.vue";
 
 const router = useRouter();
 const config = useRuntimeConfig();
@@ -84,8 +87,14 @@ useSeoMeta({
     <BackToHome />
     <div class="container">
       <div class="form-container">
-        <header>
-          <h1><span>⚡️</span> Create your account.</h1>
+        <AuthFormHeader
+          mark="⚡️"
+          title="Create your account"
+          redirectLabel="I already have an account."
+          githubLabel="Continue whit Github"
+          redirect="/login"
+        />
+        <footer>
           <form @submit.prevent="onSubmit">
             <Field
               id="newUserFullName"
@@ -106,7 +115,7 @@ useSeoMeta({
               @focus="onFieldFocus('email')"
               @input="onFieldChange"
             />
-            <Field
+            <PasswordField
               v-model="state.password"
               id="newUserPassword"
               type="password"
@@ -138,18 +147,6 @@ useSeoMeta({
               </button>
             </div>
           </form>
-        </header>
-        <footer>
-          <div>
-            <span class="divider">Or</span>
-          </div>
-          <div class="inline-box flex-between">
-            <button class="btn btn-icon">
-              <Icon class="icon icon-left" name="entypo-social:github" />
-              Continue whit Github
-            </button>
-            <NuxtLink to="/login">I already have an account</NuxtLink>
-          </div>
         </footer>
       </div>
     </div>

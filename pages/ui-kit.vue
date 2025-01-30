@@ -1,7 +1,8 @@
 <script setup>
 import { Icon, NuxtLink } from "#components";
-import FileSystemAccordeon from "~/components/FileSystemAccordeon.vue";
+import FileSystem from "~/components/FileSystem.vue";
 import FolderItem from "~/components/FolderItem.vue";
+import PasswordField from "~/components/PasswordField.vue";
 
 const config = useRuntimeConfig();
 
@@ -18,7 +19,7 @@ useSeoMeta({
   <div class="wrapper">
 
     <div class="sidebar">
-      <FileSystemAccordeon />
+      <FileSystem />
     </div>
 
     <div class="container">
@@ -126,7 +127,7 @@ useSeoMeta({
             <label class="input-label" for="">Email</label>
             <input type="email" class="input input-secondary" />
           </div>
-          <Field
+          <PasswordField
             v-model="state.password"
             id="newUserPassword"
             type="password"
