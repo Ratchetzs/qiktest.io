@@ -10,11 +10,11 @@ const store = useFlash();
 
 <template>
   <div>
-    <NuxtRouteAnnouncer />
     <NuxtLoadingIndicator />
     <div v-if="store.message">
       <Pins :type="store.type" :message="store.message" />
     </div>
+    <NuxtRouteAnnouncer />
     <NuxtPage />
   </div>
 </template>

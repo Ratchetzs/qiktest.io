@@ -2,7 +2,68 @@
 import AuthFormHeader from "~/components/AuthFormHeader.vue";
 import BackToHome from "~/components/BackToHome.vue";
 import Field from "~/components/Field.vue";
+import Loader from "~/components/Loader.vue";
 
+const router = useRouter();
+const config = useRuntimeConfig();
+const store = useFlash();
+const apiBase = config.public.apiBase;
+
+const state = reactive({
+  email: "",
+  password: "",
+  isDisabled: true,
+  isLoading: false,
+  errors: {},
+});
+
+// Delete error on the field
+const onFieldFocus = (field) => {
+  state.errors[field] = "";
+};
+
+// Listen input change event for apply the validation rules dynamicaly
+const onFieldChange = () => {
+  updateButtonState();
+};
+
+const updateButtonState = () => {
+  state.isDisabled = !state.email || !state.password;
+};
+
+const onSubmit = async () => {
+  state.isLoading = true;
+  state.errors = {};
+  try {
+    const user = await $fetch(`${apiBase}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: {
+        email: state.email,
+        password: state.password,
+      },
+    });
+    state.isLoading = false;
+    store.flash("Successfully logged in.", "success");
+    router.push("/app");
+  } catch (err) {
+    state.isLoading = false;
+    console.error(err.data.errors);
+    if (err.statusCode === 422) {
+      err.data.errors.forEach((error) => {
+        state[error.field] = "";
+        state.errors[error.field] = error.message;
+      });
+    }
+    if (err.statusCode === 400) {
+      err.data.errors.forEach((error) => {
+        store.flash(error.message, "error");
+      });
+    }
+  }
+};
 useSeoMeta({
   title: "Sign in",
 });
@@ -21,14 +82,42 @@ useSeoMeta({
           redirect="/register"
         />
         <footer>
-          <form action="">
-            <Field id="userEmail" type="email" label="Email" />
-            <Field id="userPassword" type="password" label="Password" />
+          <form @submit.prevent="onSubmit">
+            <Field
+              id="userEmail"
+              type="email"
+              label="Email"
+              v-model="state.email"
+              :placeholder="state.errors.email || ''"
+              :error="!!state.errors.email"
+              @focus="onFieldFocus('email')"
+              @input="onFieldChange"
+            />
+            <Field
+              id="userPassword"
+              type="password"
+              label="Password"
+              v-model="state.password"
+              :placeholder="state.errors.password || ''"
+              :error="!!state.errors.password"
+              @focus="onFieldFocus('password')"
+              @input="onFieldChange"
+            />
             <NuxtLink class="forgot-password" to="/"
               >Forgot password ?</NuxtLink
             >
-            <div>
-              <button disabled type="submit" class="btn btn-primary btn-full">
+            <div class="form-loader-button">
+              <Loader
+                v-if="state.isLoading"
+                label="Sign in..."
+                type="success"
+              />
+              <button
+                v-else
+                :disabled="state.isDisabled"
+                type="submit"
+                class="btn btn-primary btn-full"
+              >
                 Sign in
               </button>
             </div>
@@ -38,11 +127,3 @@ useSeoMeta({
     </div>
   </div>
 </template>
-
-<style>
-.forgot-password {
-  font-size: 12px;
-  margin-top: 10px;
-  float: right;
-}
-</style>

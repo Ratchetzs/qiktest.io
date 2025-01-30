@@ -208,7 +208,7 @@ img {
     width: 360px;
 }
 
-.form-container button[type="submit"] {
+.form-container .form-loader-button {
     margin-top: 16px;
   }
 
@@ -419,6 +419,21 @@ img {
   border-color: var(--blue);
 }
 
+.flash {
+  position: absolute;
+  width: max-content;
+  bottom: 24px;
+  right: 24px;
+  animation-name: flash;
+  animation-duration: 0.4s;
+  animation-delay: 3.9s;
+}
+
+.flash > div {
+  font-size: 14px;
+  font-weight: lighter;
+}
+
 .icon {
   font-size: var(--icon-size);
   transition: all ease 0.2s;
@@ -463,4 +478,15 @@ img {
 
 .avatar-small .avatar-name {
   font-size: var(--text-small);
+}
+
+@keyframes flash {
+  0%{
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100%{
+    transform: translateY(-50px);
+    opacity: 0;
+  }
 }

@@ -12,9 +12,9 @@ export const useFlash = defineStore("flash", {
       const timeout = setTimeout(
         () => {
           this.clear();
+          clearTimeout(timeout);
         },
-        timeout,
-        () => clearTimeout(timeout)
+        4000
       );
     },
     clear() {

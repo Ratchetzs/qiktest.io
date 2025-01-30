@@ -17,6 +17,7 @@ const state = reactive({
   passwordConfirmation: "",
   isPasswordValid: false,
   isDisabled: true,
+  isLoading: false,
   errors: {},
 });
 
@@ -47,6 +48,7 @@ const updateButtonState = () => {
 };
 
 const onSubmit = async () => {
+  state.isLoading = true;
   state.errors = {};
   try {
     await $fetch(`${apiBase}/auth/register`, {
@@ -61,13 +63,15 @@ const onSubmit = async () => {
         passwordConfirmation: state.passwordConfirmation,
       },
     });
+    state.isLoading = false;
     store.flash(
       "Your account was create successfully. Please logged in.",
       "success"
     );
-    await router.push("/login");
+    router.push("/login");
   } catch (err) {
-    console.error(err);
+    state.isLoading = false;
+    console.error(err.data.errors);
     if (err.statusCode === 422) {
       err.data.errors.forEach((error) => {
         state[error.field] = "";
@@ -137,8 +141,14 @@ useSeoMeta({
               @focus="onFieldFocus('passwordConfirmation')"
               @input="onFieldChange"
             />
-            <div>
+            <div class="form-loader-button">
+              <Loader
+                v-if="state.isLoading"
+                label="Create account..."
+                type="success"
+              />
               <button
+                v-else
                 :disabled="state.isDisabled"
                 type="submit"
                 class="btn btn-primary btn-full"
