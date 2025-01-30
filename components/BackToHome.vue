@@ -7,7 +7,7 @@
 
 <template>
   <div class="home-btn">
-    <NuxtLink to="/" class="btn btn-icon">
+    <NuxtLink to="/" class="btn btn-small btn-icon">
       <Icon class="icon icon-left" name="ri:home-3-line" />
       home
     </NuxtLink>

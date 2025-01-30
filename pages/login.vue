@@ -1,40 +1,42 @@
 <script setup>
-    import BackToHome from '~/components/buttons/BackToHome.vue';
-    import Field from '~/components/Field.vue';
+import BackToHome from "~/components/BackToHome.vue";
+import Field from "~/components/Field.vue";
 
-    useSeoMeta({
-        title:'Se connecter'
-    })
-
+useSeoMeta({
+  title: "Sign in",
+});
 </script>
 
 <template>
-    <div class="wrapper flex flex-center">
+  <div class="wrapper flex flex-center">
     <BackToHome />
-      <div class="container">
-        <h1>Se connecter</h1>
-        <form action="">
-            <Field 
-                id="userEmail"
-                type="email"
-                label="Email"
-            />
-            <Field 
-                id="userPassword"
-                type="password"
-                label="Mot de passe"
-            />
+    <div class="container">
+      <div class="form-container">
+        <header>
+          <h1><span>🚀</span> Welcome back</h1>
+          <form action="">
+            <Field id="userEmail" type="email" label="Email" />
+            <Field id="userPassword" type="password" label="Password" />
+            <div>
+              <button type="submit" class="btn btn-primary btn-full">
+                Sign in
+              </button>
+            </div>
+          </form>
+        </header>
+        <footer>
           <div>
-              <button type="submit" class="btn btn-primary btn-full">Se connecter</button>
+            <span class="divider">Or</span>
           </div>
-          <div>
-              <div class="inline-box flex-between">
-                  <NuxtLink to="/inscription">Je n'ai pas de compte</NuxtLink>
-                  <div class="text-subtil">|</div>
-                  <NuxtLink>Mot de passe oublié</NuxtLink>
-              </div>
+          <div class="inline-box flex-between align-center">
+            <button class="btn btn-icon">
+              <Icon class="icon icon-left" name="entypo-social:github" />
+              Sign in whit Github
+            </button>
+            <NuxtLink to="/register">Don't have an account?</NuxtLink>
           </div>
-        </form>
+        </footer>
       </div>
     </div>
-  </template>
+  </div>
+</template>

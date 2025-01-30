@@ -27,7 +27,7 @@
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 16px;
 }
 
 .nav-links li {
@@ -43,6 +43,22 @@
 .nav-links a:hover {
   color: #fff;
   text-decoration: none;
+}
+
+.logo {
+  display: flex;
+  align-items: flex-end;
+}
+
+.logo .pins {
+  height: 24px;
+  width: max-content;
+  padding:0 4px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: lighter;
 }
 
 /* Hero Section */

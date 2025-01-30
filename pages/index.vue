@@ -3,13 +3,17 @@
     <!-- Fixed Top Bar -->
     <header class="top-bar">
       <nav class="nav flex-between">
-        <div class="logo">QikTest</div>
+        <div class="logo">
+          <div class="pins pins-success">⚡️ v1.0.0</div>
+          QikTest
+        </div>
         <ul class="nav-links flex-center">
+          <li><NuxtLink to="/blog">About</NuxtLink></li>
           <li><NuxtLink to="/blog">Blog</NuxtLink></li>
           <li><NuxtLink to="/about">Whats up ?</NuxtLink></li>
           <li><NuxtLink to="/pricing">Pricing</NuxtLink></li>
-          <li><NuxtLink class="btn btn-primary" to="/login">Sign In</NuxtLink></li>
-          <li><NuxtLink class="btn btn-secondary" to="/register">Sign Up</NuxtLink></li>
+          <li><NuxtLink class="btn btn-small btn-secondary" to="/register">Sign Up</NuxtLink></li>
+          <li><NuxtLink class="btn btn-small btn-primary" to="/login">Sign In</NuxtLink></li>
         </ul>
       </nav>
     </header>

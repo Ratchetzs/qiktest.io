@@ -2,418 +2,465 @@
 @import url(home.css);
 
 :root {
-    /* Theme */
-    --white:#ffffff;
-    --dark-bg: #0D1117;
-    --dark-text: #C9D1D9;
-    --dark-text-subtil: #696f78;
-    --dark-box-bg: #161B22;
-    --dark-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;
-    --dark-subtil: #262c3663;
+  /* Theme */
+  --white: #ffffff;
+  --dark-bg: #0d1117;
+  --dark-text: #c9d1d9;
+  --dark-text-subtil: #696f78;
+  --dark-box-bg: #161b22;
+  --dark-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  --dark-subtil: #262c3663;
 
-    /* Accent Colors */
-    --default:#262c36;
-    --default-hover:#2d323b;
-    --default-border:#3d444d;
-    --default-alpha: #161B22F7;
-    --primary: #3FCA608F;
-    --primary-hover: #249843;
-    --secondary: #248D3C24;
-    --disabled:#43A96640;
-    --disabled-alpha: #43A9661C;
-    
-    
-    /* Status Colors */
-    --green: #41cf7c;
-    --green-alpha:#41cf7c2e;
-    --yellow: #feb32b;
-    --yellow-alpha: #feb32b30;
-    --red: #f95249;
-    --red-alpha: #f9524930;
-    --blue:#3c82db;
-    --blue-alpha:#3c82db29;
+  /* Accent Colors */
+  --default: #262c36;
+  --default-hover: #2d323b;
+  --default-border: #3d444d;
+  --default-alpha: #161b22f7;
+  --primary: #3fca608f;
+  --primary-hover: #249843;
+  --secondary: #248d3c24;
+  --disabled: #43a96640;
+  --disabled-alpha: #43a9661c;
 
-    /* Size and Spacing */
-    --default-spacing:24px;
-    --icon-size: 24px;
-    --icon-spacing: 6px;
-    --radius: 6px;
-    --text-small:14px
+  /* Status Colors */
+  --green: #41cf7c;
+  --green-alpha: #41cf7c2e;
+  --yellow: #feb32b;
+  --yellow-alpha: #feb32b30;
+  --red: #f95249;
+  --red-alpha: #f9524930;
+  --blue: #3c82db;
+  --blue-alpha: #3c82db29;
+
+  /* Size and Spacing */
+  --default-spacing: 24px;
+  --icon-size: 24px;
+  --icon-spacing: 6px;
+  --radius: 6px;
+  --text-small: 14px;
 }
 
-*, ::after, ::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: Satoshi-Regular;
-    background-color: var(--dark-bg);
-    color: var(--dark-text);
-    transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: Satoshi-Regular;
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 section {
-    border-bottom: 1px solid var(--default-border);
-    padding: var(--default-spacing) 0
+  border-bottom: 1px solid var(--default-border);
+  padding: var(--default-spacing) 0;
 }
 
-h1, h2, h3, h4, h5, h6{
-    margin-top: 0;
-    margin-bottom: 20px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 
 h1 span {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 h2 span {
-    font-size: 14px;
-    font-weight: lighter;
-    background-color: inherit;
-    color: var(--dark-text-subtil);
+  font-size: 14px;
+  font-weight: lighter;
+  background-color: inherit;
+  color: var(--dark-text-subtil);
 }
 
 p {
-    background-color: inherit;
-    color: var(--dark-text-subtil);
-    line-height: 1.6;
+  background-color: inherit;
+  color: var(--dark-text-subtil);
+  line-height: 1.6;
 }
 
 a {
-    display: inline-flex;
-    align-items: center;
-    color: var(--blue);
-    text-decoration: none;
-    font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--blue);
+  text-decoration: none;
+  font-size: 14px;
 }
 
 a.btn {
-    width: max-content;
-    color: var(--white);
+  width: max-content;
+  color: var(--white);
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 a.btn:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 em {
-    background-color: inherit;
-    color: var(--dark-text);
-    text-decoration: underline;
+  background-color: inherit;
+  color: var(--dark-text);
+  text-decoration: underline;
 }
 
 form {
-    width: 90%;
-    min-width: 360px;
-    max-width: 800px;
-    margin:auto;
+  width: 90%;
+  min-width: 360px;
+  max-width: 800px;
+  margin: auto;
 }
 
 form .inline-box {
-    margin-top: var(--default-spacing);
+  margin-top: var(--default-spacing);
 }
 
 form button[type="submit"] {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    color: var(--dark-text);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--dark-text);
 }
 
 button:hover {
-    background-color: var(--default);
+  background-color: var(--default);
 }
 
 img {
-    width: 100%;
-    clip: auto;
+  width: 100%;
+  clip: auto;
 }
 
 .wrapper {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow-x: hidden;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
 }
 
 .container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: var(--default-spacing);
-    background-color: var(--dark-box-bg);
-    border-radius: var(--radius);
-    box-shadow: 0 1px 3px var(--dark-box-shadow);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: var(--default-spacing);
+  background-color: var(--dark-box-bg);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px var(--dark-box-shadow);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .container h1 {
-    margin-bottom:var(--default-spacing);
+  margin-bottom: var(--default-spacing);
+}
+
+.sidebar {
+  position: fixed;
+  width: 200px;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: var(--dark-bg);
 }
 
 .inline-box {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .text-subtil {
-    color: var(--dark-text-subtil);
+  color: var(--dark-text-subtil);
 }
 
 .text-small {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .flex {
-    display: flex;
+  display: flex;
 }
 
 .flex-center {
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .flex-between {
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 .flex-evenly {
-    justify-content: space-evenly;
+  justify-content: space-evenly;
 }
 
 .flex-aroud {
-    justify-content: space-around;
+  justify-content: space-around;
 }
 
 .align-end {
-    align-items: end;
+  align-items: end;
+}
+
+.form-container footer .divider {
+  background-color: inherit;
+  color: var(--dark-text-subtil);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: var(--default-spacing);
+}
+
+.form-container footer .divider::after,
+.form-container footer .divider::before {
+  content: "";
+  display: block;
+  width: 35%;
+  height: 1px;
+  background-color: var(--dark-text-subtil);
+}
+
+.form-container footer a {
+  display: block;
+}
+
+.form-container footer .inline-box {
+  width: 360px;
 }
 
 .field {
-    position: relative;
-    margin-bottom: 10px;
+  position: relative;
+  margin-bottom: 10px;
 }
 
 .input {
-    width: 100%;
-    padding: 10px 14px;
-    font-size: 14px;
-    color: var(--dark-text);
-    background-color: var(--default);
-    border: 1px solid var(--default-border);
-    border-radius: 4px;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-    outline: none;
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--dark-text);
+  background-color: var(--default);
+  border: 1px solid var(--default-border);
+  border-radius: 4px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  outline: none;
 }
 
 .input-secondary {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .input::placeholder {
-    color: var(--dark-text-subtil);
+  color: var(--dark-text-subtil);
 }
 
 .input:focus {
-    border-color: var(--blue);
+  border-color: var(--blue);
 }
 
 .input-label {
-    display: block;
-    font-size: 14px;
-    color: var(--dark-text-subtil);
-    margin-bottom: 10px;
+  display: block;
+  font-size: 14px;
+  color: var(--dark-text-subtil);
+  margin-bottom: 10px;
 }
 
 .field:has(.input:focus) .input-label {
-    color: var(--dark-text);
+  color: var(--dark-text);
 }
 
 .input-error {
-    border-color: var(--red);
+  border-color: var(--red);
 }
 
 .input-error:focus {
-    border-color: var(--red);
+  border-color: var(--red);
 }
 
 .input-error::placeholder {
-    color: var(--red);
+  color: var(--red);
 }
 
 .item {
-    cursor: pointer;
-    font-size: var(--text-small);
-    padding: 8px;
+  cursor: pointer;
+  font-size: var(--text-small);
+  padding: 8px;
 }
 
 .item:hover {
-    background-color: var(--dark-subtil);
+  background-color: var(--dark-subtil);
 }
 
 .btn {
-    display: inline-block;
-    padding: 6px 12px;
-    font-size: var(--text-small);
-    background-color: var(--default);
-    color: var(--dark-text);
-    text-align: center;
-    border: 1px solid var(--default-border);
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: var(--text-small);
+  background-color: var(--default);
+  color: var(--dark-text);
+  text-align: center;
+  border: 1px solid var(--default-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-    background-color: var(--default-hover);
+  background-color: var(--default-hover);
 }
 
 .btn:disabled {
-    background-color: var(--disabled-alpha);
-    color: var(--disabled);
-    border: none;
-    cursor: not-allowed;
+  background-color: var(--disabled-alpha);
+  color: var(--disabled);
+  border: none;
+  cursor: not-allowed;
 }
 
 .btn:disabled:hover {
-    background-color: var(--disabled-alpha);
-    color: var(--disabled);
+  background-color: var(--disabled-alpha);
+  color: var(--disabled);
 }
 
 .btn-full {
-    width: 100%;
+  width: 100%;
 }
 
-.btn-icon, .item-icon {
-    display: flex;
-    align-items: center;
+.btn-small {
+  padding: 4px 8px;
 }
 
-.btn-icon .icon, .item-icon .icon {
-    font-size: 20px;
+.btn-icon,
+.item-icon {
+  display: flex;
+  align-items: center;
+}
+
+.btn-icon .icon,
+.item-icon .icon {
+  font-size: 20px;
 }
 
 .btn-white {
-    background-color: var(--dark-text);
-    color: var(--dark-box-bg);
+  background-color: var(--dark-text);
+  color: var(--dark-box-bg);
 }
 
 .btn-white:hover {
-    background-color: #fff;
+  background-color: #fff;
 }
 
 .btn-primary {
-    background-color: var(--primary);
-    color: #fff;
+  background-color: var(--primary);
+  color: #fff;
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-hover);
+  background-color: var(--primary-hover);
 }
 
 .btn-secondary {
-    background-color: var(--secondary);
-    color: var(--primary);
-    border: 1px solid var(--primary);
+  background-color: var(--secondary);
+  color: var(--primary);
+  border: 1px solid var(--primary);
 }
 
 .btn-secondary:hover {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .pins {
-    display: flex;
-    align-items: center;
-    padding: 4px 12px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--dark-text);
-    border: 1px solid var(--default-border);
-    border-radius: 4px;
-    opacity: 0.9;
+  display: flex;
+  align-items: center;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--dark-text);
+  border: 1px solid var(--default-border);
+  border-radius: 4px;
+  opacity: 0.9;
 }
 
 .pins .icon {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 .pins-success {
-    background-color: var(--green-alpha);
-    color: var(--green);
-    border-color: var(--green);
+  background-color: var(--green-alpha);
+  color: var(--green);
+  border-color: var(--green);
 }
 
 .pins-warning {
-    background-color: var(--yellow-alpha);
-    color: var(--yellow);
-    border-color: var(--yellow);
+  background-color: var(--yellow-alpha);
+  color: var(--yellow);
+  border-color: var(--yellow);
 }
 
 .pins-error {
-    background-color: var(--red-alpha);
-    color: var(--red);
-    border-color: var(--red);
+  background-color: var(--red-alpha);
+  color: var(--red);
+  border-color: var(--red);
 }
 
 .pins-info {
-    background-color: var(--blue-alpha);
-    color: var(--blue);
-    border-color: var(--blue);
+  background-color: var(--blue-alpha);
+  color: var(--blue);
+  border-color: var(--blue);
 }
 
 .icon {
-    font-size: var(--icon-size);
-    transition: all ease .2s;
+  font-size: var(--icon-size);
+  transition: all ease 0.2s;
 }
 
 .icon-left {
-    margin-right: var(--icon-spacing);
+  margin-right: var(--icon-spacing);
 }
 
 .icon-right {
-    margin-right: var(--icon-spacing);
+  margin-right: var(--icon-spacing);
 }
 
 .icon.arrow {
-    font-size: 16px;
-    margin-right: 2px;
+  font-size: 16px;
+  margin-right: 2px;
 }
 
 .icon.arrow.active {
-    transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .avatar {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .avatar-image {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
 }
 
 .avatar-name {
-    margin-left: var(--icon-spacing);
+  margin-left: var(--icon-spacing);
 }
 
 .avatar-small .avatar-image {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .avatar-small .avatar-name {
-    font-size: var(--text-small);
+  font-size: var(--text-small);
 }

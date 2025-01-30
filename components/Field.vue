@@ -67,29 +67,32 @@ const cls = () => `input ${props.error ? "input-error" : ""}`;
     />
 
     <div v-if="state.passwordBoxIsShow" class="password-input-box">
-      <p :class="{ success: state.passwordRules.minLength }"><Icon name="ic:outline-check" /> 8+ characters</p>
-      <p :class="{ success: state.passwordRules.hasNumber }"><Icon name="ic:outline-check" /> A number</p>
-      <p :class="{ success: state.passwordRules.hasUppercase }"><Icon name="ic:outline-check" /> An uppercase letter</p>
-      <p :class="{ success: state.passwordRules.hasSpecialChar }"><Icon name="ic:outline-check" /> A special character</p>
-      <p :class="{ success: state.passwordRules.confirmed }"><Icon name="ic:outline-check" /> Your passwords match</p>
+      <p :class="{ success: state.passwordRules.minLength }"><Icon class="icon-left" name="ic:outline-check" /> 8+ characters</p>
+      <p :class="{ success: state.passwordRules.hasNumber }"><Icon class="icon-left" name="ic:outline-check" /> A number</p>
+      <p :class="{ success: state.passwordRules.hasUppercase }"><Icon class="icon-left" name="ic:outline-check" /> An uppercase letter</p>
+      <p :class="{ success: state.passwordRules.hasSpecialChar }"><Icon class="icon-left" name="ic:outline-check" /> A special character</p>
+      <p :class="{ success: state.passwordRules.confirmed }"><Icon class="icon-left" name="ic:outline-check" /> Your passwords match</p>
     </div>
   </div>
 </template>
 
 <style scoped>
 .password-input-box {
-  background-color: var(--dark-box-bg);
-  padding: 12px;
   position: absolute;
-  bottom: -20px;
-  transform: translateY(50%);
-  right: -220px;
-  box-shadow: var(--dark-box-shadow);
+  width:max-content;
+  right:-180px;
+  bottom:-90px;
+  padding: 12px;
+  background-color: var(--dark-box-bg);
+  box-shadow: var(--dark-box-shadow);  
+  border-radius: var(--radius);
   z-index: 9;
 }
 
 .password-input-box p {
-  font-size: 14px;
+  display:flex;
+  align-items:center;
+  font-size: 12px;
   margin: 4px 0;
   color: var(--dark-text-subtil);
   transition: color 0.3s ease;
@@ -98,5 +101,6 @@ const cls = () => `input ${props.error ? "input-error" : ""}`;
 .password-input-box p.success {
   color: var(--green);
 }
+
 </style>
 

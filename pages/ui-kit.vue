@@ -1,16 +1,13 @@
 <script setup>
-import { NuxtLink } from "#components";
-import BackToHome from "~/components/buttons/BackToHome.vue";
+import { Icon, NuxtLink } from "#components";
+import FileSystemAccordeon from "~/components/FileSystemAccordeon.vue";
+import FolderItem from "~/components/FolderItem.vue";
+
+const config = useRuntimeConfig();
 
 const state = reactive({
   password: "",
-  folderItemIsActive: false,
 });
-
-const onFolderItemClick = () =>
-  (state.folderItemIsActive = !state.folderItemIsActive);
-const handleFolderIcon = () =>
-  !state.folderItemIsActive ? "ep:folder" : "ep:folder-opened";
 
 useSeoMeta({
   title: "Testsflow's UI KIT",
@@ -19,10 +16,15 @@ useSeoMeta({
 
 <template>
   <div class="wrapper">
+
+    <div class="sidebar">
+      <FileSystemAccordeon />
+    </div>
+
     <div class="container">
       <section>
         <div class="inline-box flex-between">
-          <h1>👏 Welcom to Testsflow's UI Kit</h1>
+          <h1>👏 Welcom to {{config.public.appName}} UI Kit</h1>
           <NuxtLink to="/" class="btn btn-small btn-icon">
             <Icon class="icon icon-left" name="ri:home-3-line" />
             home
@@ -64,18 +66,7 @@ useSeoMeta({
             <Icon class="icon icon-left" name="ri:home-3-line" />
             home
           </button>
-          <li class="item item-icon" @click="onFolderItemClick">
-            <Icon
-              :class="{
-                arrow: true,
-                icon: true,
-                active: state.folderItemIsActive,
-              }"
-              name="ep:arrow-right"
-            />
-            <Icon class="icon icon-left" :name="handleFolderIcon()" />
-            untitled folder
-          </li>
+          <FolderItem name="untitled folder" />
           <div class="pins pins-info">
             <Icon class="icon icon-left" name="svg-spinners:blocks-shuffle-2" />
             Chargement ...

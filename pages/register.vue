@@ -1,8 +1,11 @@
 <script setup>
-import BackToHome from "~/components/buttons/BackToHome.vue";
+import BackToHome from "~/components/BackToHome.vue";
+import { useFlash } from "#imports";
 
+const router = useRouter();
 const config = useRuntimeConfig();
-const apiBase = config.public.api;
+const store = useFlash();
+const apiBase = config.public.apiBase;
 
 const state = reactive({
   fullName: "",
@@ -14,15 +17,18 @@ const state = reactive({
   errors: {},
 });
 
+// Delete error on the field
 const onFieldFocus = (field) => {
-  state.errors[field] = ""; // Supprimer l'erreur du champ
+  state.errors[field] = "";
 };
 
+// Enabled the submit button when the rules for password is validated.
 const onPasswordValidation = (isValid) => {
   state.isPasswordValid = isValid;
   updateButtonState();
 };
 
+// Listen input change event for apply the validation rules dynamicaly
 const onFieldChange = () => {
   updateButtonState();
 };
@@ -40,8 +46,7 @@ const updateButtonState = () => {
 const onSubmit = async () => {
   state.errors = {};
   try {
-    const url = `${apiBase}/auth/register`;
-    const response = await $fetch(url, {
+    await $fetch(`${apiBase}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,12 +58,16 @@ const onSubmit = async () => {
         passwordConfirmation: state.passwordConfirmation,
       },
     });
-
-    console.log(response);
+    store.flash(
+      "Your account was create successfully. Please logged in.",
+      "success"
+    );
+    await router.push("/login");
   } catch (err) {
+    console.error(err);
     if (err.statusCode === 422) {
       err.data.errors.forEach((error) => {
-        state[error.field] = '';
+        state[error.field] = "";
         state.errors[error.field] = error.message;
       });
     }
@@ -74,60 +83,75 @@ useSeoMeta({
   <div class="wrapper flex flex-center">
     <BackToHome />
     <div class="container">
-      <h1><span>🖤</span> Create your account.</h1>
-      <form @submit.prevent="onSubmit">
-        <Field
-          id="newUserFullName"
-          label="Full Name"
-          v-model="state.fullName"
-          :placeholder="state.errors.fullName || ''"
-          :error="!!state.errors.fullName"
-          @focus="onFieldFocus('fullName')"
-          @input="onFieldChange"
-        />
-        <Field
-          v-model="state.email"
-          id="newUserEmail"
-          type="email"
-          label="Email"
-          :placeholder="state.errors.email || ''"
-          :error="!!state.errors.email"
-          @focus="onFieldFocus('email')"
-          @input="onFieldChange"
-        />
-        <Field
-          v-model="state.password"
-          id="newUserPassword"
-          type="password"
-          label="Password"
-          :placeholder="state.errors.password || ''"
-          @focus="onFieldFocus('password')"
-          @input="onFieldChange"
-          :error="!!state.errors.password"
-          :passwordConfirmation="state.passwordConfirmation"
-          @password-valid="onPasswordValidation"
-        />
-        <Field
-          v-model="state.passwordConfirmation"
-          id="newUserPasswordConfirm"
-          type="password"
-          label="Confirm password"
-          :placeholder="state.errors.passwordConfirmation || ''"
-          :error="!!state.errors.passwordConfirmation"
-          @focus="onFieldFocus('passwordConfirmation')"
-          @input="onFieldChange"
-        />
-        <div>
-          <button :disabled="state.isDisabled" type="submit" class="btn btn-primary btn-full">
-            Create account
-          </button>
-        </div>
-        <div>
+      <div class="form-container">
+        <header>
+          <h1><span>⚡️</span> Create your account.</h1>
+          <form @submit.prevent="onSubmit">
+            <Field
+              id="newUserFullName"
+              label="Full Name"
+              v-model="state.fullName"
+              :placeholder="state.errors.fullName || ''"
+              :error="!!state.errors.fullName"
+              @focus="onFieldFocus('fullName')"
+              @input="onFieldChange"
+            />
+            <Field
+              v-model="state.email"
+              id="newUserEmail"
+              type="email"
+              label="Email"
+              :placeholder="state.errors.email || ''"
+              :error="!!state.errors.email"
+              @focus="onFieldFocus('email')"
+              @input="onFieldChange"
+            />
+            <Field
+              v-model="state.password"
+              id="newUserPassword"
+              type="password"
+              label="Password"
+              :placeholder="state.errors.password || ''"
+              @focus="onFieldFocus('password')"
+              @input="onFieldChange"
+              :error="!!state.errors.password"
+              :passwordConfirmation="state.passwordConfirmation"
+              @password-valid="onPasswordValidation"
+            />
+            <Field
+              v-model="state.passwordConfirmation"
+              id="newUserPasswordConfirm"
+              type="password"
+              label="Confirm password"
+              :placeholder="state.errors.passwordConfirmation || ''"
+              :error="!!state.errors.passwordConfirmation"
+              @focus="onFieldFocus('passwordConfirmation')"
+              @input="onFieldChange"
+            />
+            <div>
+              <button
+                :disabled="state.isDisabled"
+                type="submit"
+                class="btn btn-primary btn-full"
+              >
+                Create account
+              </button>
+            </div>
+          </form>
+        </header>
+        <footer>
+          <div>
+            <span class="divider">Or</span>
+          </div>
           <div class="inline-box flex-between">
+            <button class="btn btn-icon">
+              <Icon class="icon icon-left" name="entypo-social:github" />
+              Continue whit Github
+            </button>
             <NuxtLink to="/login">I already have an account</NuxtLink>
           </div>
-        </div>
-      </form>
+        </footer>
+      </div>
     </div>
   </div>
 </template>
