@@ -6,11 +6,11 @@ export const useAuth = defineStore(
     const user = ref(null);
     const errors = ref({});
 
-    // Verifie if the use in logged in
+    // Verify if the use is logged in
     const isAuthenticated = computed(() => !!user.value);
 
     /**
-     * Authenticated User
+     * Authenticated the user
      * @param {string} email
      * @param {string} password
      * @returns {Promise<boolean>}
@@ -38,9 +38,21 @@ export const useAuth = defineStore(
       }
     };
 
+    /**
+     * Register new user
+     * @param {string} fullName 
+     * @param {string} email 
+     * @param {string} password 
+     * @param {string} passwordConfirmed 
+     */
+    const register = async(fullName, email, password, passwordConfirmed) => {
+        
+    };
+
     return {
       user,
       errors,
+      register,
       authenticate,
       isAuthenticated,
     };
