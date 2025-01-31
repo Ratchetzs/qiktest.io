@@ -1,15 +1,13 @@
 <script setup>
 import { useFlash } from "#imports";
-import { useUser } from "#imports";
+import { useAuth } from "#imports";
 import BackToHome from "~/components/BackToHome.vue";
 import Field from "~/components/Field.vue";
 import AuthFormHeader from "~/components/AuthFormHeader.vue";
 
 const router = useRouter();
 const flashStore = useFlash();
-const userStore = useUser();
-const config = useRuntimeConfig();
-const apiBase = config.public.apiBase;
+const auth = useAuth();
 
 const state = reactive({
   email: "",
@@ -30,44 +28,29 @@ const onFieldChange = () => {
 };
 
 const updateButtonState = () => {
-  state.isDisabled =
-    !state.email ||
-    !state.password
+  state.isDisabled = !state.email || !state.password;
 };
 
 const onSubmit = async () => {
   state.isLoading = true;
   state.errors = {};
-  try {
-    const user = await $fetch(`${apiBase}/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: {
-        email: state.email,
-        password: state.password,
-      },
-    });
+
+  const loginSuccess = await auth.authenticate(state.email, state.password);
+
+  if (loginSuccess) {
     state.isLoading = false;
-    flashStore.flash(
-      "Logged in successfully.",
-      "success"
-    );
-    userStore.setLoggedIn();
-    userStore.setUser(user);
+    flashStore.flash("Logged in successfully.", "success");
     router.push("/app");
-  } catch (err) {
+  } else {
     state.isLoading = false;
-    console.error(err.data.errors);
-    if (err.statusCode === 422) {
-      err.data.errors.forEach((error) => {
+    if (auth.errors.status === 422) {
+      auth.errors.content.forEach((error) => {
         state[error.field] = "";
         state.errors[error.field] = error.message;
       });
     }
-    if (err.statusCode === 400) {
-      err.data.errors.forEach((error) => {
+    if (auth.errors.status === 400) {
+      auth.errors.content.forEach((error) => {
         flashStore.flash(error.message, 'error');
       });
     }

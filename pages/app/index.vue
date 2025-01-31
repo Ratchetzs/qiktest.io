@@ -1,10 +1,10 @@
 <script setup>
-import { useUser } from "#imports";
 
-const userStore = useUser();
-const user = userStore.getUser;
+import { useAuth } from "#imports";
 
-console.log(userStore.getUser.fullName);
+const auth = useAuth();
+
+console.log(auth.user.fullName)
 
 useSeoMeta({
   title: "App",
