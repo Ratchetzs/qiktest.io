@@ -21,7 +21,17 @@ const cls = () => `input ${props.error ? "input-error" : ""}`;
 <template>
   <div class="field">
     <label class="input-label" :for="id">{{ label }}</label>
+    <textarea v-if="type === 'textarea'" 
+      :id="id"
+      :class="cls()"
+      :placeholder="placeholder"
+      :value="modelValue"
+      @input="onChange"
+      @focus="$emit('focus')"
+    >
+    </textarea>
     <input
+      v-else
       :id="id"
       :class="cls()"
       :type="type"

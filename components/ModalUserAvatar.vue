@@ -33,7 +33,7 @@ const handleClick = () => {
           >
         </li>
         <li class="item">
-          <NuxtLink class="btn-icon" to="">
+          <NuxtLink class="btn-icon" to="/app/settings/account">
             <Icon
               name="ic:round-settings"
               class="icon icon-left"

@@ -131,6 +131,12 @@ img {
   clip: auto;
 }
 
+textarea {
+  resize: none;
+  height: 200px;
+}
+
+
 footer {
   padding: 20px;
   background-color: var(--dark-box-bg);
@@ -248,6 +254,10 @@ footer {
   font-weight: lighter;
 }
 
+.logo:hover {
+  text-decoration: none;
+}
+
 .hero {
   display: flex;
   justify-content: center;
@@ -299,6 +309,31 @@ footer {
   top: 75px;
   left: 0;
   background-color: var(--dark-bg);
+  border-right: 1px solid var(--default-border) ;
+}
+
+.sidebar ul {
+  margin-bottom: 16px;
+}
+
+.sidebar a {
+  margin-left: 10px;
+}
+
+.sidebar-title {
+  margin-left: 10px;
+  margin-top: 24px;
+}
+.sidebar .item.active {
+  border-right: 3px solid var(--blue);
+  background-color: var(--dark-subtil);
+}
+.sidebar-items-info {
+  display: block;
+  font-size: 12px;
+  color: var(--dark-text-subtil);
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 .inline-box {

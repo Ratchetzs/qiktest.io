@@ -30,7 +30,7 @@ const onSubmit = async () => {
 
 <template>
   <form method="post" @submit.prevent="onSubmit">
-    <button class="btn-logout btn-icon" type="submit">
+    <button class="btn-icon" type="submit">
       <Icon
         v-if="state.isLoading"
         class="icon icon-left"
