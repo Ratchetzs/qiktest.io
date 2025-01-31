@@ -4,15 +4,15 @@ import { NuxtLoadingIndicator } from "#components";
 import { useFlash } from "#imports";
 import Pins from "./components/Pins.vue";
 
-const store = useFlash();
+const flash = useFlash();
 
 </script>
 
 <template>
   <div>
     <NuxtLoadingIndicator />
-    <div v-if="store.message">
-      <Pins :type="store.type" :message="store.message" />
+    <div v-if="flash.message">
+      <Pins :type="flash.type" :message="flash.message" />
     </div>
     <NuxtRouteAnnouncer />
     <NuxtPage />

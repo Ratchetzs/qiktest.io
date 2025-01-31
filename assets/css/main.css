@@ -587,8 +587,8 @@ footer {
   bottom: 24px;
   right: 24px;
   animation-name: flash;
-  animation-duration: 0.4s;
-  animation-delay: 3.9s;
+  animation-duration: 1s;
+  animation-delay: 3s;
 }
 
 .flash > div {

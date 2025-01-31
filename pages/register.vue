@@ -7,7 +7,7 @@ import AuthFormHeader from "~/components/AuthFormHeader.vue";
 
 const router = useRouter();
 const config = useRuntimeConfig();
-const store = useFlash();
+const flash = useFlash();
 const apiBase = config.public.apiBase;
 
 const state = reactive({
@@ -64,7 +64,7 @@ const onSubmit = async () => {
       },
     });
     state.isLoading = false;
-    store.flash(
+    flash.set(
       "Your account was create successfully. Please logged in.",
       "success"
     );

@@ -1,16 +1,16 @@
 import { defineStore } from "pinia";
 
 export const useAuth = defineStore(
-  "auth",
+  'auth',
   () => {
     const user = ref(null);
     const errors = ref({});
 
-    // Vérifie si l'utilisateur est authentifié
+    // Verifie if the use in logged in
     const isAuthenticated = computed(() => !!user.value);
 
     /**
-     * Authentifie l'utilisateur
+     * Authenticated User
      * @param {string} email
      * @param {string} password
      * @returns {Promise<boolean>}

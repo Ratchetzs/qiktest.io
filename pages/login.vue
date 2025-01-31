@@ -6,7 +6,7 @@ import Field from "~/components/Field.vue";
 import AuthFormHeader from "~/components/AuthFormHeader.vue";
 
 const router = useRouter();
-const flashStore = useFlash();
+const flash = useFlash();
 const auth = useAuth();
 
 const state = reactive({
@@ -39,7 +39,7 @@ const onSubmit = async () => {
 
   if (loginSuccess) {
     state.isLoading = false;
-    flashStore.flash("Logged in successfully.", "success");
+    flash.set("Logged in successfully.", "success");
     router.push("/app");
   } else {
     state.isLoading = false;
@@ -51,7 +51,7 @@ const onSubmit = async () => {
     }
     if (auth.errors.status === 400) {
       auth.errors.content.forEach((error) => {
-        flashStore.flash(error.message, 'error');
+        flash.set(error.message, 'error');
       });
     }
   }
