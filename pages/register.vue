@@ -1,14 +1,12 @@
 <script setup>
-import { useFlash } from "#imports";
 import BackToHome from "~/components/BackToHome.vue";
 import PasswordField from "~/components/PasswordField.vue";
 import Field from "~/components/Field.vue";
 import AuthFormHeader from "~/components/AuthFormHeader.vue";
 
 const router = useRouter();
-const config = useRuntimeConfig();
 const flash = useFlash();
-const apiBase = config.public.apiBase;
+const auth = useAuth();
 
 const state = reactive({
   fullName: "",
@@ -50,30 +48,25 @@ const updateButtonState = () => {
 const onSubmit = async () => {
   state.isLoading = true;
   state.errors = {};
-  try {
-    await $fetch(`${apiBase}/auth/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: {
-        email: state.email,
-        fullName: state.fullName,
-        password: state.password,
-        passwordConfirmation: state.passwordConfirmation,
-      },
-    });
+
+  const recordedCorrectly = await auth.register(
+    state.fullName,
+    state.email,
+    state.password,
+    state.passwordConfirmation
+  );
+
+  if(recordedCorrectly){
     state.isLoading = false;
     flash.set(
       "Your account was create successfully. Please logged in.",
       "success"
     );
     router.push("/login");
-  } catch (err) {
+  } else {
     state.isLoading = false;
-    console.error(err.data.errors);
-    if (err.statusCode === 422) {
-      err.data.errors.forEach((error) => {
+    if (auth.errors.status === 422) {
+      auth.errors.content.forEach((error) => {
         state[error.field] = "";
         state.errors[error.field] = error.message;
       });

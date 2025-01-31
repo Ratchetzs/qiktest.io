@@ -476,6 +476,10 @@ footer {
   background-color: transparent;
 }
 
+.item a {
+  background-color: transparent;
+}
+
 .btn:hover {
   background-color: var(--default-hover);
 }
@@ -508,7 +512,7 @@ footer {
 
 .btn-icon .icon,
 .item-icon .icon {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .btn-white {
@@ -586,7 +590,7 @@ footer {
   right: 24px;
   animation-name: flash;
   animation-duration: 1s;
-  animation-delay: 3s;
+  animation-delay: 3.5s;
 }
 
 .flash > div {

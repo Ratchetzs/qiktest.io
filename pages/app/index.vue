@@ -1,10 +1,7 @@
 <script setup>
 
-import { useAuth } from "#imports";
 
 const auth = useAuth();
-
-console.log(auth.user.fullName)
 
 useSeoMeta({
   title: "App",

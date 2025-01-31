@@ -1,6 +1,4 @@
 <script setup>
-import { useFlash } from "#imports";
-import { useAuth } from "#imports";
 import BackToHome from "~/components/BackToHome.vue";
 import Field from "~/components/Field.vue";
 import AuthFormHeader from "~/components/AuthFormHeader.vue";
