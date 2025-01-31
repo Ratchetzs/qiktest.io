@@ -1,10 +1,15 @@
 <script setup>
 
-
 const auth = useAuth();
 
+definePageMeta({
+    middleware: 'auth'
+});
+
+
+
 useSeoMeta({
-  title: "App",
+  title: `Welcome ${auth.user.fullName}`, 
 });
 </script>
 
