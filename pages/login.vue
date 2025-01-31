@@ -1,16 +1,15 @@
 <script setup>
-import AuthFormHeader from "~/components/AuthFormHeader.vue";
+import { useFlash } from "#imports";
+import { useUser } from "#imports";
 import BackToHome from "~/components/BackToHome.vue";
 import Field from "~/components/Field.vue";
-import Loader from "~/components/Loader.vue";
+import AuthFormHeader from "~/components/AuthFormHeader.vue";
 
 const router = useRouter();
-const config = useRuntimeConfig();
 const flashStore = useFlash();
-const authStore = useAuth();
+const userStore = useUser();
+const config = useRuntimeConfig();
 const apiBase = config.public.apiBase;
-
-console.log(authStore.getUserToken)
 
 const state = reactive({
   email: "",
@@ -31,7 +30,9 @@ const onFieldChange = () => {
 };
 
 const updateButtonState = () => {
-  state.isDisabled = !state.email || !state.password;
+  state.isDisabled =
+    !state.email ||
+    !state.password
 };
 
 const onSubmit = async () => {
@@ -49,7 +50,12 @@ const onSubmit = async () => {
       },
     });
     state.isLoading = false;
-    flashStore.flash("Successfully logged in.", "success");
+    flashStore.flash(
+      "Logged in successfully.",
+      "success"
+    );
+    userStore.setLoggedIn();
+    userStore.setUser(user);
     router.push("/app");
   } catch (err) {
     state.isLoading = false;
@@ -62,11 +68,12 @@ const onSubmit = async () => {
     }
     if (err.statusCode === 400) {
       err.data.errors.forEach((error) => {
-        dlashStore.flash(error.message, "error");
+        flashStore.flash(error.message, 'error');
       });
     }
   }
 };
+
 useSeoMeta({
   title: "Sign in",
 });

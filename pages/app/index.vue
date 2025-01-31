@@ -1,3 +1,16 @@
+<script setup>
+import { useUser } from "#imports";
+
+const userStore = useUser();
+const user = userStore.getUser;
+
+console.log(userStore.getUser.fullName);
+
+useSeoMeta({
+  title: "App",
+});
+</script>
+
 <template>
   <header class="top-bar">
     <nav class="nav nav-full">
