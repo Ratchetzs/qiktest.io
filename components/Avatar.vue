@@ -12,12 +12,12 @@ const cls = () => `avatar ${props.small ? 'avatar-small' : ''}`;
 </script>
 
 <template>
-  <div :class="cls()">
+  <button :class="cls()">
     <img
       class="avatar-image"
       :src="src"
       :alt="alt"
     />
     <span v-if="name" class="avatar-name">{{ name }}</span>
-  </div>
+  </button>
 </template>

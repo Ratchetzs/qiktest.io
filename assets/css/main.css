@@ -1,5 +1,4 @@
 @import url(satoshi.css);
-@import url(home.css);
 
 :root {
   /* Theme */
@@ -87,6 +86,10 @@ p {
   line-height: 1.6;
 }
 
+li {
+  list-style: none;
+}
+
 a {
   display: inline-flex;
   align-items: center;
@@ -130,6 +133,13 @@ img {
   clip: auto;
 }
 
+footer {
+  padding: 20px;
+  background-color: var(--dark-box-bg);
+  text-align: center;
+  color: var(--dark-text);
+}
+
 .wrapper {
   position: relative;
   width: 100%;
@@ -151,11 +161,144 @@ img {
   margin-bottom: var(--default-spacing);
 }
 
+.top-bar {
+  position: fixed;
+  max-height: 75px;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--default-alpha);
+  z-index: 10; /* Ensure the navbar is always on top */
+  padding: 20px 0;
+  border-bottom: 1px solid var(--default-border);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.nav-full {
+  max-width: 1600px;
+}
+
+.nav .logo {
+  font-size: 24px;
+  color: var(--dark-text);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+}
+
+.nav-links li {
+  font-size: 16px;
+}
+
+.nav-links a {
+  color: var(--dark-text);
+  text-decoration: none;
+  font-weight: lighter
+}
+
+.nav-links a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-modal {
+  position: relative;
+  
+}
+.nav-modal .panel {
+  display: none;
+  position: absolute;
+  width: 200px;
+  top: 40px;
+  right: 0;
+  background-color: var(--dark-box-bg);
+  box-shadow: var(--dark-box-shadow);
+}
+
+.nav-modal .panel.active {
+  display: block;
+}
+
+.nav-modal .panel .item {
+  padding: 16px;
+}
+
+.logo {
+  display: flex;
+  align-items: flex-end;
+}
+
+.logo .pins {
+  height: 24px;
+  width: max-content;
+  padding:0 4px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: lighter;
+}
+
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 20px;
+  background: var(--dark-box-bg);
+  height: 100vh;
+  border-radius: 6px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  text-align: center;
+}
+
+.hero-text {
+  flex: 1;
+  padding-right: 30px;
+}
+
+.about,
+.features,
+.pricing {
+  padding: 40px 20px;
+  background: var(--dark-box-bg);
+  border-radius: 6px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  text-align: center;
+}
+
+.feature-cards,
+.pricing-cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.feature-card,
+.pricing-card {
+  background-color: var(--dark-box-bg);
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px var(--dark-box-shadow);
+  max-width: 300px;
+  text-align: center;
+}
+
 .sidebar {
   position: fixed;
   width: 200px;
   height: 100vh;
-  top: 0;
+  top: 75px;
   left: 0;
   background-color: var(--dark-bg);
 }
@@ -296,7 +439,18 @@ img {
 .item {
   cursor: pointer;
   font-size: var(--text-small);
+  background-color: inherit;
+  color: var(--dark-text);
   padding: 8px;
+}
+
+.item a {
+  background-color: inherit;
+  color: var(--dark-text);
+}
+
+.item a:hover {
+  text-decoration: none;
 }
 
 .item:hover {
@@ -314,6 +468,14 @@ img {
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+
+.btn-logout {
+  color: var(--red);
+}
+
+.btn-logout:hover {
+  background-color: transparent;
 }
 
 .btn:hover {
@@ -459,6 +621,11 @@ img {
 .avatar {
   display: flex;
   align-items: center;
+}
+
+.avatar:hover {
+  background: none;
+  opacity: .9;
 }
 
 .avatar-image {

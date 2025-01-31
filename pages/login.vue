@@ -6,8 +6,11 @@ import Loader from "~/components/Loader.vue";
 
 const router = useRouter();
 const config = useRuntimeConfig();
-const store = useFlash();
+const flashStore = useFlash();
+const authStore = useAuth();
 const apiBase = config.public.apiBase;
+
+console.log(authStore.getUserToken)
 
 const state = reactive({
   email: "",
@@ -46,7 +49,7 @@ const onSubmit = async () => {
       },
     });
     state.isLoading = false;
-    store.flash("Successfully logged in.", "success");
+    flashStore.flash("Successfully logged in.", "success");
     router.push("/app");
   } catch (err) {
     state.isLoading = false;
@@ -59,7 +62,7 @@ const onSubmit = async () => {
     }
     if (err.statusCode === 400) {
       err.data.errors.forEach((error) => {
-        store.flash(error.message, "error");
+        dlashStore.flash(error.message, "error");
       });
     }
   }
