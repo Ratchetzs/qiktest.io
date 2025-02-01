@@ -1,12 +1,43 @@
 <script setup>
+const auth = useAuth();
+const flash = useFlash();
+
 const state = reactive({
   keyName: "",
   keyValue: "",
+  isDisabled:true,
 });
 
-const handleSubmit = () => {
-  // Ajouter ici la logique pour sauvegarder la clé
-  console.log("Key added:", state.keyName, state.keyValue);
+// Delete error on the field
+const onFieldFocus = (field) => {
+  state.errors[field] = "";
+};
+
+// Listen input change event for apply the validation rules dynamicaly
+const onFieldChange = () => {
+  updateButtonState();
+};
+
+const updateButtonState = () => {
+  state.isDisabled = !state.keyName || !state.keyValue;
+};
+
+const handleSubmit = async () => {
+  try {
+    await $fetch('http://localhost:3333/user/api-keys', {
+      method:'POST',
+      headers:{
+        Authorization:`Bearer ${auth.user.token}`
+      },
+      body:{
+        name:state.keyName,
+        value:state.keyValue,
+      }
+    });
+    flash.set('Your key was successfully stored.', 'success');
+  } catch(error) {
+    console.log(error);
+  }
 };
 
 definePageMeta({
@@ -38,10 +69,18 @@ useSeoMeta({
           type="text"
           v-model="state.keyName"
           label="Key Name"
-          placeholder="An unique name for your key"
+          placeholder="A unique name for your key"
+          @focus="onFieldFocus('name')"
+          @input="onFieldChange"
         />
-        <Field type="textarea" v-model="state.keyValue" label="Key Value" />
-        <button class="btn btn-primary" type="submit">Add Key</button>
+        <Field 
+          type="textarea" 
+          v-model="state.keyValue" 
+          label="Key Value"
+          @focus="onFieldFocus('value')"
+          @input="onFieldChange"
+        />
+        <button :disabled="state.isDisabled" class="btn btn-primary" type="submit">Add Key</button>
       </form>
     </div>
   </main>

@@ -621,13 +621,11 @@ footer {
   position: absolute;
   width: max-content;
   bottom: 24px;
-  right: 24px;
-  animation-name: flash;
-  animation-duration: 1s;
-  animation-delay: 3.5s;
+  right: 20px;
 }
 
 .flash > div {
+  max-width: 400px;
   font-size: 14px;
   font-weight: lighter;
 }
@@ -681,15 +679,4 @@ footer {
 
 .avatar-small .avatar-name {
   font-size: var(--text-small);
-}
-
-@keyframes flash {
-  0%{
-    transform: translateY(0);
-    opacity: 1;
-  }
-  100%{
-    transform: translateY(-50px);
-    opacity: 0;
-  }
 }

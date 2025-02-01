@@ -13,3 +13,6 @@ const cls = (type) => `pins pins-${type}`;
   </div>
 </template>
 
+<style scoped>
+
+</style>

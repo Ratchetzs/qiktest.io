@@ -6,7 +6,7 @@ const flash = useFlash();
 </script>
 
 <template>
-  <div>
+  <div class="wrapper">
     <NuxtLoadingIndicator />
     <div v-if="flash.message">
       <Pins :type="flash.type" :message="flash.message" />
