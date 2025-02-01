@@ -388,7 +388,7 @@ footer {
     margin-top: 16px;
   }
 
-.form-container .divider {
+.divider {
   background-color: inherit;
   color: var(--dark-text-subtil);
   display: flex;
@@ -398,8 +398,8 @@ footer {
   margin-bottom: 16px;
 }
 
-.form-container .divider::after,
-.form-container .divider::before {
+.divider::after,
+.divider::before {
   content: "";
   display: block;
   width: 40%;
@@ -477,18 +477,24 @@ footer {
   padding: 8px;
 }
 
+.item:hover {
+  background-color: var(--dark-subtil);
+}
+
 .item a {
-  background-color: inherit;
+  
   color: var(--dark-text);
 }
 
 .item a:hover {
+  background-color: none;
   text-decoration: none;
 }
 
-.item:hover {
-  background-color: var(--dark-subtil);
+.item .btn-icon:hover {
+  background: none;
 }
+
 
 .btn {
   display: inline-block;
@@ -503,15 +509,7 @@ footer {
   transition: background-color 0.3s ease;
 }
 
-.btn-logout {
-  color: var(--red);
-}
-
 .btn-logout:hover {
-  background-color: transparent;
-}
-
-.item a {
   background-color: transparent;
 }
 
@@ -581,6 +579,7 @@ footer {
 .pins {
   display: flex;
   align-items: center;
+  width: max-content;
   padding: 4px 12px;
   font-size: 12px;
   font-weight: 600;
