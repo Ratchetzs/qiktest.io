@@ -51,7 +51,7 @@ const isActive = (path) => route.path === path;
           >
         </li>
         <li :class="{ item: true, active: isActive('/app/settings/api-keys') }">
-          <NuxtLink class="btn-icon" to=""
+          <NuxtLink class="btn-icon" to="/app/settings/api-keys"
             ><Icon name="ic:baseline-key-off" class="icon icon-left" />Manage
             API Keys</NuxtLink
           >

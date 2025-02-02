@@ -34,6 +34,8 @@ const handleSubmit = async () => {
         value:state.keyValue,
       }
     });
+    state.keyName = '';
+    state.keyValue  = '';
     flash.set('Your key was successfully stored.', 'success');
   } catch(error) {
     console.log(error);

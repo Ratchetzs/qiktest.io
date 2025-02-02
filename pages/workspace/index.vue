@@ -1,133 +1,40 @@
 <script setup>
-const auth = useAuth();
 const flash = useFlash();
 const router = useRouter();
+const github = useGithubRepository();
 
 const state = reactive({
   workspace: null,
-  userRepositories:[],
-  repositories: [],
   repositoryUrl: "",
-  repositoryChoise:null,
+  repositoryChoice: null,
   modal: false,
 });
 
-const handleLoadUserRepositories = async () => {
-  try {
-    const response = await $fetch("http://localhost:3333/user/repos", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${auth.user.token}`,
-      },
-    });
-    state.userRepositories = response;
-  } catch (error) {
-    console.error(error.data);
+const getRepositories = async () => {
+  const success = await github.getRepositories();
+  if (!success) {
+    if (github.errors.status === 404) return;
+    flash.set(github.errors.content, "error");
   }
 };
 
-const handleFindRepository = async () => {
-  if (state.repositories.length >= 2) {
-    flash.set(
-      "Your current free plan supports up to 2 repositories. Upgrade to a premium plan to add more.",
-      "info"
-    );
-    return;
-  }
-  try {
-    state.repositoryUrl = state.repositoryUrl.replace(
-      "https://github.com/",
-      ""
-    );
-    const repository = await $fetch(
-      `http://localhost:3333/repos/${state.repositoryUrl}`,
-      {
-        headers: {
-          Authorization: `Bearer ${auth.user.token}`,
-        },
-      }
-    );
-    state.repositoryUrl = "";
-    if (state.repositories.find((obj) => obj.id === repository.id)) {
-      flash.set("This repository is already added.", "error");
-    } else {
-      state.repositories.push(repository);
-    }
-  } catch (error) {
-    console.log(error.status);
-    switch (error.status) {
-      case 401:
-        flash.set("Unauthorized access. Please logged in", "error");
-        break;
-      case 403:
-        flash.set(error.data.message, 'info', 6000);
-        router.push('/app/settings/add-api-key');
-      break;
-      case 404:
-        flash.set(error.data.message, "error");
-        break;
-      default:
-        flash.set("Failed to add repository", "error");
-        break;
-    }
-  }
-};
+const findRepository = async () =>
+  await github.findRepository(state.repositoryUrl);
 
-const handleAddRepository = async (id) => {
-  const repository = state.repositories.find((obj) => obj.id === id);
-  try {
-    await $fetch("http://localhost:3333/user/repos", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${auth.user.token}`,
-      },
-      body: {
-        repositoryId: repository.id,
-        url: repository.url,
-        name: repository.name,
-        description: repository.description || "",
-        type: repository.type,
-        avatar: repository.owner.avatar,
-      },
-    });
-    flash.set("Repository successfully added", "success");
-    state.repositories = state.repositories.filter(
-      (obj) => obj.id !== repository.id
-    );
-    if (state.repositories.length === 0) {
-      reloadNuxtApp();
-    }
-  } catch (error) {
-    console.error(error);
-    switch (error.status) {
-      case 402:
-        flash.set(error.data, "info");
-        break;
-      default:
-        flash.set("failed to add repository", "error");
-        break;
-    }
-  }
-};
+const handleAddRepository = async (id) => await github.addRepository(id);
 
-
+const handleChoiceRepository = () =>
+  router.push(`/workspace/${state.repositoryChoice}`);
 
 const handleModal = () => (state.modal = !state.modal);
-const handleChoiseRepository = () => {
-  const id = state.repositoryChoise;
-  router.push(`/workspace/${id}`);
-}
 
-onMounted(() => handleLoadUserRepositories());
+onMounted(async () => await getRepositories());
 
-definePageMeta({
-  middleware: "auth",
-});
+definePageMeta({ middleware: "auth" });
 
-useSeoMeta({
-  title: `Workspace`,
-});
+useSeoMeta({ title: `Workspace` });
 </script>
+
 <template>
   <div class="wrapper">
     <header class="top-bar">
@@ -137,32 +44,49 @@ useSeoMeta({
           <button class="btn btn-primary" @click="handleModal">
             Add repository
           </button>
-          <ModalUserAvatar src="/images/avatars/me.png" alt="Ratchetzs" />
+          <ModalUserAvatar src="/images/avatars/me.png" alt="User Avatar" />
         </div>
       </nav>
     </header>
     <main>
       <div v-if="!state.modal" class="container">
-        <div v-if="state.userRepositories.length === 0">
-          <p>No repositories? That’s like coding without <span class="code">Stack Overflow</span>. Add one!</p>
+        <div v-if="github.repositories.length === 0">
+          <p>
+            No repositories? That’s like coding without
+            <span class="code">Stack Overflow</span>. Add one!
+          </p>
           <button class="btn btn-primary" @click="handleModal">
             Add repository
           </button>
         </div>
-        <div v-else="state.userRepositories > 0">
-          <p>Please select a repository for start.</p>
-          <form action="" method="post" @submit.prevent="handleChoiseRepository">
-            <select v-model="state.repositoryChoise" class="input">
+        <div v-else-if="github.repositories.length > 0">
+          <p>Please select a repository to start.</p>
+          <form @submit.prevent="handleChoiceRepository">
+            <label for="repository-select">Select a repository:</label>
+            <select
+              v-model="state.repositoryChoice"
+              id="repository-select"
+              class="input"
+            >
+              <option disabled value="">-- Select a repository --</option>
               <option
-                v-for="repository in state.userRepositories"
-                :value="repository.id"
+                v-for="repository in github.repositories"
+                :key="repository.repositoryId"
+                :value="repository.repositoryId"
               >
                 {{ repository.name }}
               </option>
             </select>
-            <button class="btn btn-primary" type="submit">
+            <button
+              class="btn btn-primary"
+              type="submit"
+              :disabled="!state.repositoryChoice"
+            >
               Add to workspace
             </button>
+            <p v-if="!github.repositories.length">
+              No repositories found. Sync with GitHub first.
+            </p>
           </form>
         </div>
       </div>
@@ -170,7 +94,7 @@ useSeoMeta({
         <button @click="handleModal" class="cancel">
           <Icon class="icon" name="ic:baseline-cancel" />
         </button>
-        <form class="no-resize" method="post" @submit.prevent="handleFindRepository">
+        <form class="no-resize" @submit.prevent="findRepository">
           <Field
             id="repositoryUrl"
             v-model="state.repositoryUrl"
@@ -185,8 +109,11 @@ useSeoMeta({
           </p>
           <button class="btn btn-primary" type="submit">Find repository</button>
         </form>
-        <div class="repository-box" v-if="state.repositories.length > 0">
-          <div class="repository" v-for="repository in state.repositories">
+        <div class="repository-box" v-if="github.repositoriesFound.length > 0">
+          <div
+            class="repository"
+            v-for="repository in github.repositoriesFound"
+          >
             <div>
               <div class="inline-box">
                 <Avatar :src="repository.owner.avatar" />
@@ -201,9 +128,8 @@ useSeoMeta({
             <button
               @click="handleAddRepository(repository.id)"
               class="btn btn-primary"
-              type="submit"
             >
-              add
+              Add
             </button>
           </div>
         </div>
