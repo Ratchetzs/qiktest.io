@@ -34,7 +34,7 @@ const onSubmit = async () => {
       <Icon
         v-if="state.isLoading"
         class="icon icon-left"
-        name="svg-spinners:180-ring-with-bg"
+        name="svg-spinners:270-ring-with-bg"
       />
       <Icon v-else 
         class="icon icon-left"

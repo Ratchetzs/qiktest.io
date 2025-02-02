@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import { ref, unref } from "vue";
 
 export const useGithubRepository = defineStore(
   "github_repository",

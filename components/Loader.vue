@@ -1,15 +1,16 @@
 <script setup>
-defineProps({
+const props = defineProps({
   type: String,
   label: String,
+  fullWidth: Boolean
 });
 
-const cls = (type) => `pins pins-${type}`;
+const cls = (type) => `pins pins-${type} ${props.fullWidth ? 'full-width' : ''}`;
 </script>
 
 <template>
   <div :class="cls(type)">
-    <Icon class="icon icon-left" name="svg-spinners:180-ring-with-bg" />
+    <Icon class="icon icon-left" name="svg-spinners:270-ring-with-bg" />
     {{ label }}
   </div>
 </template>

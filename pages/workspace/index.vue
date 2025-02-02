@@ -1,5 +1,5 @@
 <script setup>
-const flash = useFlash();
+const flash  = useFlash();
 const router = useRouter();
 const github = useGithubRepository();
 
@@ -42,7 +42,7 @@ useSeoMeta({ title: `Workspace` });
         <Logo redirect="/app" />
         <div class="inline-box">
           <button class="btn btn-primary" @click="handleModal">
-            Add repository
+            Find from Github
           </button>
           <ModalUserAvatar src="/images/avatars/me.png" alt="User Avatar" />
         </div>
@@ -60,9 +60,8 @@ useSeoMeta({ title: `Workspace` });
           </button>
         </div>
         <div v-else-if="github.repositories.length > 0">
-          <p>Please select a repository to start.</p>
           <form @submit.prevent="handleChoiceRepository">
-            <label for="repository-select">Select a repository:</label>
+            <label class="workspace-label" for="repository-select">Select a repository to start:</label>
             <select
               v-model="state.repositoryChoice"
               id="repository-select"
@@ -78,15 +77,12 @@ useSeoMeta({ title: `Workspace` });
               </option>
             </select>
             <button
-              class="btn btn-primary"
+              class="workspace-btn btn btn-primary"
               type="submit"
               :disabled="!state.repositoryChoice"
             >
               Add to workspace
             </button>
-            <p v-if="!github.repositories.length">
-              No repositories found. Sync with GitHub first.
-            </p>
           </form>
         </div>
       </div>
@@ -139,6 +135,8 @@ useSeoMeta({ title: `Workspace` });
 </template>
 
 <style scoped>
+
+
 .wrapper {
   display: flex;
   align-items: center;
@@ -158,6 +156,15 @@ form {
 
 form.no-resize {
   min-height: 175px;
+}
+
+.workspace-label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.workspace-btn {
+  margin-top: 24px;
 }
 
 .repository-box {

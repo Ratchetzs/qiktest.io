@@ -518,13 +518,17 @@ footer {
 }
 
 .btn:disabled {
+  background-color: var(--default-alpha);
+}
+
+.btn-primary:disabled {
   background-color: var(--disabled-alpha);
   color: var(--disabled);
   border: none;
   cursor: not-allowed;
 }
 
-.btn:disabled:hover {
+.btn-primary:disabled:hover {
   background-color: var(--disabled-alpha);
   color: var(--disabled);
 }
@@ -576,6 +580,11 @@ footer {
   background-color: transparent;
 }
 
+.btn-danger {
+  color: var(--red);
+  background-color: var(--dark-box-bg);
+}
+
 .pins {
   display: flex;
   align-items: center;
@@ -615,6 +624,10 @@ footer {
   background-color: var(--blue-alpha);
   color: var(--blue);
   border-color: var(--blue);
+}
+
+.pins.full-width {
+  width: 100%;
 }
 
 .flash {
