@@ -693,3 +693,43 @@ footer {
 .avatar-small .avatar-name {
   font-size: var(--text-small);
 }
+
+.cm-editor {
+  background: var(--dark-bg) !important; 
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Style général de la scrollbar */
+*::-webkit-scrollbar {
+  width: 8px; /* Largeur de la scrollbar */
+  height: 8px; /* Hauteur pour les scrollbars horizontales */
+}
+
+/* Fond de la scrollbar */
+*::-webkit-scrollbar-track {
+  background: #121212; /* Fond sombre */
+  border-radius: 10px;
+}
+
+/* Barre de défilement */
+*::-webkit-scrollbar-thumb {
+  background: #00ff7f; /* Vert néon */
+  border-radius: 10px;
+  border: 2px solid #121212; /* Crée un effet "détaché" */
+  transition: background 0.3s ease-in-out;
+}
+
+/* Effet au survol */
+*::-webkit-scrollbar-thumb:hover {
+  background: #00cc66; /* Vert néon plus foncé */
+}
+
+/* Scrollbar plus discrète pour les petits conteneurs */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #00ff7f99; /* Version semi-transparente */
+}

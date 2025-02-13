@@ -6,6 +6,7 @@ export const useGithubRepository = defineStore(
     const errors = ref({});
     const repositories = ref([]); // user reporitories from db
     const repositoriesFound = ref([]); // repositories found from github
+    const repositoryContent = ref({id:null, value:null});
 
     /**
      * Find a repository from GitHub
@@ -175,6 +176,7 @@ export const useGithubRepository = defineStore(
       errors,
       repositories,
       repositoriesFound,
+      repositoryContent,
       addRepository,
       findRepository,
       getRepositories,

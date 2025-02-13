@@ -1,9 +1,10 @@
 <script setup>
+
 const props = defineProps({
   id: String,
   type: { type: String, default: "text" },
   label: String,
-  modelValue: String,
+  modelValue: { type: String, default: "" }, // ✅ Toujours une valeur par défaut
   placeholder: String,
   error: Boolean,
 });
@@ -11,34 +12,37 @@ const props = defineProps({
 const emit = defineEmits(["update:modelValue", "focus"]);
 
 const onChange = (e) => {
-  const value = e.target.value;
-  emit("update:modelValue", value);
+  emit("update:modelValue", e.target.value);
 };
 
-const cls = () => `input ${props.error ? "input-error" : ""}`;
+// ✅ Meilleure gestion des classes avec `computed`
+const inputClass = computed(() => `input ${props.error ? "input-error" : ""}`);
 </script>
 
 <template>
   <div class="field">
-    <label class="input-label" :for="id">{{ label }}</label>
-    <textarea v-if="type === 'textarea'" 
+    <label v-if="label" class="input-label" :for="id">{{ label }}</label>
+
+    <textarea
+      v-if="type === 'textarea'"
       :id="id"
-      :class="cls()"
+      :class="inputClass"
       :placeholder="placeholder"
-      :value="modelValue"
+      :value="modelValue || ''"
       @input="onChange"
       @focus="$emit('focus')"
-    >
-    </textarea>
+    ></textarea>
+
     <input
       v-else
       :id="id"
-      :class="cls()"
+      :class="inputClass"
       :type="type"
       :placeholder="placeholder"
-      :value="modelValue"
+      :value="modelValue || ''"
       @input="onChange"
       @focus="$emit('focus')"
     />
   </div>
 </template>
+

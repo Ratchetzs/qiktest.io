@@ -81,4 +81,8 @@ span {
 .arrow.open {
   transform: rotate(90deg);
 }
+
+.item {
+  display: flex
+}
 </style>

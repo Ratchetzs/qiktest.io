@@ -1,42 +1,75 @@
 <script setup>
+import Loader from "~/components/Loader.vue";
 
 const auth = useAuth();
 const flash = useFlash();
 const router = useRouter();
+const github = useGithubRepository();
+
+const props = defineProps({
+  data: Object,
+});
 
 const selectedFile = ref(null);
 
 const state = reactive({
-  content:null,
+  content: null,
+  loading: false,
 });
 
+const findKey = (obj, keyToFind) => {
+  for (const key in obj) {
+    if (key === keyToFind) return obj[key]; // Trouvé !
+    if (typeof obj[key] === "object" && obj[key] !== null) {
+      const result = findKey(obj[key], keyToFind);
+      if (result !== undefined) return result;
+    }
+  }
+  return undefined;
+};
+
 const selectFile = (file) => {
-  selectedFile.value = file;
+  const target = findKey(state.content, file.name);
+  console.log(`File selected: ${target}`);
+  selectedFile.value = ""; // Reset
+  if (target) {
+    nextTick(() => {
+      selectedFile.value = atob(target.value);
+    });
+  }
 };
 
 const handleLoadContent = async () => {
-  const id = useRoute().params.id
+  state.loading = true;
+  const id = useRoute().params.id;
   try {
     const response = await $fetch(`http://localhost:3333/user/repos/${id}`, {
-      headers:{
-        'Authorization': `Bearer ${auth.user.token}`
-      }
+      headers: {
+        Authorization: `Bearer ${auth.user.token}`,
+      },
     });
-    console.log(response);
+    state.loading = false;
+    state.content = response.content;
+    github.repositoryContent = {id, value: state.content};
   } catch (error) {
-    if(error.data.status === 403){
-      flash.set(error.data.message, 'info', 6000);
-      router.push('/app/settings/add-api-key');
+    if (error.data.status === 403) {
+      state.loading = false;
+      flash.set(error.data.message, "info", 6000);
+      router.push("/app/settings/add-api-key");
     } else {
-      flash.set(error.data.message, 'error');
+      flash.set(error.data.message, "error");
     }
   }
-}
-
+};
 
 onMounted(() => {
-  handleLoadContent();
-})
+  const id = useRoute().params.id;
+  if(github.repositoryContent.id === null || github.repositoryContent.id !== id ){
+    handleLoadContent();
+  } else {
+    state.content = github.repositoryContent.value;
+  }
+});
 
 definePageMeta({
   middleware: "auth",
@@ -57,18 +90,24 @@ useSeoMeta({
         </div>
       </nav>
     </header>
+    <aside v-if="state.content !== null" class="sidebar">
+      <h4 class="sidebar-title">Worspace</h4>
+      <ul class="nav-sidebar">
+        <FolderItem
+          v-for="(value, key) in state.content"
+          :key="key"
+          :name="key"
+          :item="value"
+          @fileSelected="selectFile"
+        />
+      </ul>
+    </aside>
     <main>
-      <div v-if="state.content !== null" class="sidebar">
-        <h4 class="sidebar-title">Worspace</h4>
-        <ul>
-          <FolderItem
-            v-for="(value, key) in state.content"
-            :key="key"
-            :name="key"
-            :item="value"
-            @fileSelected="selectFile"
-          />
-        </ul>
+      <div v-if="state.loading">
+        <Loader label="Chargement..." />
+      </div>
+      <div class="editor" v-if="selectedFile">
+        <CodeEditor v-model="selectedFile" :language="'javascript'" />
       </div>
     </main>
   </div>
@@ -81,65 +120,21 @@ useSeoMeta({
   justify-content: center;
 }
 
-.code {
-  display: inline-block;
-  width: max-content;
-  color: #fff;
-  background: #1e1e1e;
+.sidebar {
+  width: 300px;
+  overflow-y: scroll;
 }
 
-form {
-  margin-top: 24px;
+.nav-sidebar {
+  margin-left: 20px;
 }
 
-button[type="submit"] {
-  margin-top: 20px;
-}
-
-.container {
-  position: relative;
-}
-
-.container p {
-  margin-bottom: 24px;
-}
-
-.pins {
-  margin-bottom: 10px;
-}
-
-.cancel {
+.editor {
   position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--dark-text-subtil);
-  transition: color 0.2s;
+  top: 75px;
+  right: -20px;
+  height: 100vh;
+  width: calc(100vw - 300px);
 }
 
-.cancel:hover {
-  background: none;
-  color: var(--dark-text);
-}
-
-.repository {
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--default-border);
-}
-
-.repository:first-of-type {
-  margin-top: 24px;
-}
-
-.repository p,
-form p {
-  margin-bottom: 0;
-}
-
-.repository-title {
-  margin-bottom: 10px;
-  margin-top: 10px;
-}
-</style> 
+</style>
